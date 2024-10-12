@@ -11,24 +11,24 @@ export default function Header() {
           <ul className="flex items-center gap-8 font-medium">
             <li
               className={`${
-                active == 0 ? "text-purple-600" : "text-zinc-950"
-              } cursor-pointer hover:text-purple-600 transition-all duration-200`}
+                active == 0 ? "text-red-600" : "text-stone-950"
+              } cursor-pointer hover:text-red-600 transition-all duration-200`}
               onClick={() => setActive(0)}
             >
               Home
             </li>
             <li
               className={`${
-                active == 1 ? "text-purple-600" : "text-zinc-950"
-              } cursor-pointer hover:text-purple-600 transition-all duration-200`}
+                active == 1 ? "text-red-600" : "text-stone-950"
+              } cursor-pointer hover:text-red-600 transition-all duration-200`}
               onClick={() => setActive(1)}
             >
               About
             </li>
             <li
               className={`${
-                active == 2 ? "text-purple-600" : "text-zinc-950"
-              } cursor-pointer hover:text-purple-600 transition-all duration-200`}
+                active == 2 ? "text-red-600" : "text-stone-950"
+              } cursor-pointer hover:text-red-600 transition-all duration-200`}
               onClick={() => setActive(2)}
             >
               Contact
@@ -39,24 +39,24 @@ export default function Header() {
           <ul className="space-y-3 font-medium">
             <li
               className={`${
-                active == 0 ? "text-purple-600" : "text-zinc-950"
-              } cursor-pointer hover:text-purple-600 transition-all duration-200`}
+                active == 0 ? "text-red-600" : "text-stone-950"
+              } cursor-pointer hover:text-red-600 transition-all duration-200`}
               onClick={() => setActive(0)}
             >
               Home
             </li>
             <li
               className={`${
-                active == 1 ? "text-purple-600" : "text-zinc-950"
-              } cursor-pointer hover:text-purple-600 transition-all duration-200`}
+                active == 1 ? "text-red-600" : "text-stone-950"
+              } cursor-pointer hover:text-red-600 transition-all duration-200`}
               onClick={() => setActive(1)}
             >
               About
             </li>
             <li
               className={`${
-                active == 2 ? "text-purple-600" : "text-zinc-950"
-              } cursor-pointer hover:text-purple-600 transition-all duration-200`}
+                active == 2 ? "text-red-600" : "text-stone-950"
+              } cursor-pointer hover:text-red-600 transition-all duration-200`}
               onClick={() => setActive(2)}
             >
               Contact

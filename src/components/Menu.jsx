@@ -5,7 +5,9 @@ import image3 from "../assets/002.jpeg";
 import image4 from "../assets/002.jpeg";
 import image5 from "../assets/002.jpeg";
 import image6 from "../assets/002.jpeg";
+import { GoDotFill } from "react-icons/go";
 import { useState } from "react";
+import Section from "./Section";
 
 const Items = [
   {
@@ -59,81 +61,110 @@ const Items = [
 ];
 
 export default function Menu() {
-  const [items, SetItems] = useState(
-    Items.filter((e) => e.category === "Main")
-  );
+  const [items, SetItems] = useState(Items);
 
-  const [activeItem, setActiveItem] = useState("Main");
+  const [activeItem, setActiveItem] = useState("All");
 
   function handleItems(e) {
-    SetItems(Items.filter((item) => item.category === e));
-    setActiveItem(e);
+    if (e === "All") {
+      SetItems(Items);
+      setActiveItem(e);
+    } else {
+      SetItems(Items.filter((item) => item.category === e));
+      setActiveItem(e);
+    }
   }
 
   return (
-    <section className="container px-10 m-auto flex items-center">
-      <div className="w-full py-20">
-        <h1 className="text-3xl font-black text-center">OUR MENU</h1>
-        <br />
-        <br />
-        <br />
-        <div className="flex w-full gap-5">
-          <menu className="border-r p-10 w-[300px] space-y-2">
-            <h5 className="font-bold text-xl mb-5">Categories</h5>
-            <li
-              className={`${
-                activeItem == "Main"
-                  ? "text-purple-600 font-semibold"
-                  : "text-zinc-800"
-              } cursor-pointer hover:text-purple-600 transition-all duration-200`}
-              onClick={() => {
-                handleItems("Main");
-              }}
-            >
-              Main Items
-            </li>
-            <li
-              className={`${
-                activeItem == "Beverages"
-                  ? "text-purple-600 font-semibold"
-                  : "text-zinc-800"
-              } cursor-pointer hover:text-purple-600 transition-all duration-200`}
-              onClick={() => {
-                handleItems("Beverages");
-              }}
-            >
-              Beverages
-            </li>
-            <li
-              className={`${
-                activeItem == "Snacks"
-                  ? "text-purple-600 font-semibold"
-                  : "text-zinc-800"
-              } cursor-pointer hover:text-purple-600 transition-all duration-200`}
-              onClick={() => {
-                handleItems("Snacks");
-              }}
-            >
-              Snacks
-            </li>
-          </menu>
-          <div className="flex flex-wrap gap-5">
-            {items ? (
-              items.map((item) => (
-                <MenuItems
-                  key={item.id}
-                  img={item.img}
-                  title={item.title}
-                  description={item.description}
-                  price={item.price}
-                />
-              ))
-            ) : (
-              <MenuItems />
+    <Section>
+      <h1 className="text-3xl font-black text-center">OUR MENU</h1>
+      <br />
+      <br />
+      <br />
+      <div className="md:flex w-full gap-5">
+        <menu className="border-b md:border-b-0 md:border-r md:py-5 md:w-[200px] md:space-y-1 md:block flex gap-3 py-2 ">
+          <h5 className="font-bold text-xl mb-3 md:block hidden">Categories</h5>
+          <li
+            className={`${
+              activeItem == "All" ? "text-red-500 font-bold" : "text-stone-600"
+            } cursor-pointer hover:font-bold transition-all duration-200 px-2 py-1 md:py-1 md:px-2 rounded-l-full md:flex items-center justify-between text-center md:text-left`}
+            onClick={() => {
+              handleItems("All");
+            }}
+          >
+            All
+            {activeItem == "All" && (
+              <span className="w-full flex justify-center mt-1 md:w-auto">
+                <GoDotFill size={18} className="text-red-500" />
+              </span>
             )}
-          </div>
+          </li>
+          <li
+            className={`${
+              activeItem == "Main" ? "text-red-500 font-bold" : "text-stone-600"
+            } cursor-pointer hover:font-bold transition-all duration-200 px-2 py-1 md:py-1 md:px-2 rounded-l-full md:flex items-center justify-between text-center md:text-left`}
+            onClick={() => {
+              handleItems("Main");
+            }}
+          >
+            Main
+            {activeItem == "Main" && (
+              <span className="w-full flex justify-center mt-1 md:w-auto">
+                <GoDotFill size={18} className="text-red-500" />
+              </span>
+            )}
+          </li>
+          <li
+            className={`${
+              activeItem == "Beverages"
+                ? "text-red-500 font-bold"
+                : "text-stone-600"
+            } cursor-pointer hover:font-bold transition-all duration-200 px-2 py-1 md:py-1 md:px-2 rounded-l-full md:flex items-center justify-between text-center md:text-left`}
+            onClick={() => {
+              handleItems("Beverages");
+            }}
+          >
+            Beverages
+            {activeItem == "Beverages" && (
+              <span className="w-full flex justify-center mt-1 md:w-auto">
+                <GoDotFill size={18} className="text-red-500" />
+              </span>
+            )}
+          </li>
+          <li
+            className={`${
+              activeItem == "Snacks"
+                ? "text-red-500 font-bold"
+                : "text-stone-600"
+            } cursor-pointer hover:font-bold transition-all duration-200 px-2 py-1 md:py-1 md:px-2 rounded-l-full md:flex items-center justify-between text-center md:text-left`}
+            onClick={() => {
+              handleItems("Snacks");
+            }}
+          >
+            Snacks
+            {activeItem == "Snacks" && (
+              <span className="w-full flex justify-center mt-1 md:w-auto">
+                <GoDotFill size={18} className="text-red-500" />
+              </span>
+            )}
+          </li>
+        </menu>
+        <div className="flex flex-1 flex-wrap gap-5 mt-3 md:mt-0">
+          {items ? (
+            items.map((item) => (
+              <MenuItems
+                key={item.id}
+                img={item.img}
+                title={item.title}
+                description={item.description}
+                price={item.price}
+              />
+            ))
+          ) : (
+            <MenuItems />
+          )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
