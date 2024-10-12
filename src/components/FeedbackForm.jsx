@@ -28,13 +28,13 @@ export default function FeedbackForm() {
           <textarea
             type="text"
             id="message"
-            className="border w-full px-3 py-2 focus:outline-purple-300 focus:shadow-lg focus:shadow-purple-200 rounded-md resize-none h-32 overflow-y-scroll"
+            className="border w-full px-3 py-2 focus:outline-orange-300 focus:shadow-lg focus:shadow-orange-200 rounded-md resize-none h-32 overflow-y-scroll"
           />
         </div>
       </div>
 
       <div className="mt-3">
-        <button className="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 w-full">
+        <button className="bg-gradient-to-br from-red-600 to-orange-600 hover:bg-gradient-to-br hover:from-orange-600 hover:to-red-600 text-white px-4 py-2 rounded-md w-full">
           Submit
         </button>
       </div>
