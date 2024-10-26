@@ -7,6 +7,7 @@ import SignupForm from "./SignupForm.jsx";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/AuthProvider.jsx";
 import { FaRegHeart } from "react-icons/fa6";
+import { RiAdminLine } from "react-icons/ri";
 
 const Navbar = ({ active = 0 }) => {
   const { user } = useContext(AuthContext);
@@ -70,12 +71,17 @@ const Navbar = ({ active = 0 }) => {
               {signIn && (
                 <>
                   <FaRegHeart className="size-5 hover:text-red-500 cursor-pointer" />
-                  <div className="bg-orange-600 p-2 rounded-full w-10 flex justify-center items-center text-white hover:shadow-lg cursor-pointer transition-all duration-150" onClick={goToProfile}>
+                  <div className="bg-orange-600 p-2 rounded-full size-10 flex justify-center items-center text-white hover:shadow-lg cursor-pointer transition-all duration-150" onClick={goToProfile}>
                     {user && user.avatar ? (
                       <span className="text-red-500">{user.avatar}</span>
                     ) : (
                       <span className="">
-                        {user.name.slice(0, 2).toUpperCase()}
+                        {user.isAdmin ? (
+                          <RiAdminLine  size={25}/>
+                        ) : (
+                        <>{user.name.slice(0,2).toUpperCase()}</>
+                          
+                         )}
                       </span>
                     )}
                   </div>

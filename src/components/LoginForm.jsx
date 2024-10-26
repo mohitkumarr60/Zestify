@@ -22,11 +22,7 @@ function LoginForm({ setSignIn, setLogin, setSignup }) {
     else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
       toast.error("Please enter a valid email address");
       return;
-    } else if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long");
-      return;
     }
-
     try {
       const response = await axios.post(
         "http://localhost:5000/api/login",
@@ -41,6 +37,7 @@ function LoginForm({ setSignIn, setLogin, setSignup }) {
         setSignIn(true);
         setLogin(false);
         toast.success("Login successful!");
+        window.location.reload();
       } else {
         toast.error("Invalid email or password");
       }
