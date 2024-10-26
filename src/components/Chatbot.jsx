@@ -29,9 +29,9 @@ export default function Chatbot() {
           <div className="bottom-0 w-full mt-[10px]">
             <div className="relative">
               <input
-                className="border w-full rounded-md px-3 py-[10px] focus:shadow-md focus:shadow-orange-200 focus:outline-none text-sm shadow"
+                className="border w-full rounded-md px-3 py-[10px] focus:shadow-md focus:shadow-orange-200 focus:outline-none text-sm shadow placeholder:text-zinc-500"
                 type="text"
-                placeholder="Enter your message"
+                placeholder="Chat with AI..."
               />
               <BiSolidSend className="absolute bottom-2 right-2 size-6 text-orange-600 hover:text-orange-700 cursor-pointer" />
             </div>
