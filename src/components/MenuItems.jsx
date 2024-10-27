@@ -1,6 +1,28 @@
-const handleAddToCart = () => {};
+import axios from "axios";
+import { toast } from "react-toastify";
+export default function MenuItems({
+  id,
+  img,
+  title,
+  description,
+  price,
+  quantity,
+}) {
+  async function handleAddToCart() {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/add-to-cart",
+        { itemId: id },
+        { withCredentials: true }
+      );
+      if (response.status === 200) {
+        toast.success("Item added to cart");
+      }
+    } catch {
+      toast.error("Failed to add item to cart");
+    }
+  }
 
-export default function MenuItems({ img, title, description, price }) {
   return (
     <>
       <div className="w-full md:w-auto lg:w-[48%] xl:w-[31%] border bg-white bg-opacity-35 backdrop-blur rounded-xl">
@@ -14,7 +36,11 @@ export default function MenuItems({ img, title, description, price }) {
               className="text-xs text-stone-800 font-semibold bg-yellow-400 px-2 rounded-md hover:bg-yellow-500"
               onClick={handleAddToCart}
             >
-              Add to Cart
+              {quantity > 0 ? (
+                <span>{quantity}</span>
+              ) : (
+                <span>Add to Cart</span>
+              )}
             </button>
           </div>
         </div>

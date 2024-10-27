@@ -17,9 +17,9 @@ const Navbar = ({ active = 0 }) => {
   const [click, setClick] = useState(false);
   const navigate = useNavigate();
 
-  const goToProfile =()=>{
+  const goToProfile = () => {
     navigate(`/profile?id=${user._id}`);
-  }
+  };
 
   return (
     <>
@@ -47,42 +47,69 @@ const Navbar = ({ active = 0 }) => {
               >
                 <Link to="/">Home</Link>
               </li>
-              <li
-                className={`${
-                  active === 1 ? "text-red-500" : ""
-                } hover:text-red-500 cursor-pointer`}
-              >
-                <Link to="/about">About</Link>
-              </li>
-              <li
-                className={`${
-                  active === 2 ? "text-red-500" : ""
-                } hover:text-red-500 cursor-pointer`}
-              >
-                <Link to="/feedback">Feedback</Link>
-              </li>
-              <li
-                className={`${
-                  active === 3 ? "text-red-500" : ""
-                } hover:text-red-500 cursor-pointer`}
-              >
-                <Link to="/contact">Contact us</Link>
-              </li>
+              {!user?.isAdmin && (
+                <>
+                  <li
+                    className={`${
+                      active === 1 ? "text-red-500" : ""
+                    } hover:text-red-500 cursor-pointer`}
+                  >
+                    <Link to="/about">About</Link>
+                  </li>
+                  <li
+                    className={`${
+                      active === 2 ? "text-red-500" : ""
+                    } hover:text-red-500 cursor-pointer`}
+                  >
+                    <Link to="/feedback">Feedback</Link>
+                  </li>
+                  <li
+                    className={`${
+                      active === 3 ? "text-red-500" : ""
+                    } hover:text-red-500 cursor-pointer`}
+                  >
+                    <Link to="/contact">Contact us</Link>
+                  </li>
+                </>
+              )}
               {signIn && (
                 <>
-                  <FaRegHeart className="size-5 hover:text-red-500 cursor-pointer" />
-                  <div className="bg-orange-600 p-2 rounded-full size-10 flex justify-center items-center text-white hover:shadow-lg cursor-pointer transition-all duration-150" onClick={goToProfile}>
-                    {user && user.avatar ? (
-                      <span className="text-red-500">{user.avatar}</span>
-                    ) : (
-                      <span className="">
-                        {user.isAdmin ? (
-                          <RiAdminLine  size={25}/>
+                  {user.isAdmin ? (
+                    <button
+                      className={`${
+                        active === 4
+                          ? "bg-gradient-to-r from-red-500 to-orange-500 text-white"
+                          : "border border-red-300 text-stone-800"
+                      } px-3 py-1 rounded-lg hover:bg-gradient-to-r hover:text-white hover:from-red-600 hover:bg-orange-600 transition-all duration-100`}
+                    >
+                      <Link to={"/admin_dashboard"}>Admin Dashboard</Link>
+                    </button>
+                  ) : (
+                    <FaRegHeart className="size-5 hover:text-red-500 cursor-pointer" />
+                  )}
+
+                  <div
+                    className="bg-orange-600 p-2 rounded-full size-10 flex justify-center items-center text-white hover:shadow-lg cursor-pointer transition-all duration-150"
+                    onClick={goToProfile}
+                  >
+                    {user && user.isAdmin ? (
+                      <>
+                        {user.avatar ? (
+                          <span>{user.avatar}</span>
                         ) : (
-                        <>{user.name.slice(0,2).toUpperCase()}</>
-                          
-                         )}
-                      </span>
+                          <RiAdminLine size={25} />
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {user.avatar ? (
+                          <span>{user.avatar}</span>
+                        ) : (
+                          <span className="">
+                            {user.name.slice(0, 2).toUpperCase()}
+                          </span>
+                        )}
+                      </>
                     )}
                   </div>
                 </>
@@ -90,12 +117,12 @@ const Navbar = ({ active = 0 }) => {
               {!signIn && (
                 <>
                   <li className="" onClick={() => setLogin(true)}>
-                    <button className="bg-orange-600 hover:bg-orange-700 transition-all duration-150 text-white rounded px-6 py-[10px]">
+                    <button className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:bg-orange-600 text-white rounded px-6 py-[10px]">
                       Login
                     </button>
                   </li>
                   <li
-                    className="border-2 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white transition-all duration-150 rounded px-6 py-[10px]"
+                    className="border-2 border-orange-600 text-orange-600 hover:bg-gradient-to-r hover:from-red-600 hover:to-orange-600 hover:text-white transition-all duration-150 rounded px-6 py-[10px]"
                     onClick={() => setSignup(true)}
                   >
                     <button>Signup</button>

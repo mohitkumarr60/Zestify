@@ -3,15 +3,16 @@ import Home from "./pages/Home";
 import Feedback from "./pages/Feedback";
 import Team from "./pages/Team";
 import Profile from "./pages/Profile";
+import AdminDashboard from "./pages/AdminDashboard";
 import NoPage from "./pages/NoPage/NoPage";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthContext } from "./AuthProvider";
+import AdminRoute from "./AdminRoute";
+import UserRoute from "./UserRoute";
 
 function App() {
   const [active, setActive] = useState(0);
-  const { user } = useContext(AuthContext);
   return (
     <div className="font-Manrope">
       <ToastContainer
@@ -39,7 +40,19 @@ function App() {
           />
           <Route
             path="/profile"
-            element={<Profile active={active} setActive={setActive} />}
+            element={
+              <UserRoute>
+                <Profile active={active} setActive={setActive} />
+              </UserRoute>
+            }
+          />
+          <Route
+            path="/admin_dashboard"
+            element={
+              <AdminRoute>
+                <AdminDashboard active={active} setActive={setActive} />
+              </AdminRoute>
+            }
           />
           <Route path="*" element={<NoPage />} />
         </Routes>

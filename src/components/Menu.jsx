@@ -1,76 +1,45 @@
 import MenuItems from "./MenuItems";
-import image1 from "../assets/002.jpeg";
-import image2 from "../assets/002.jpeg";
-import image3 from "../assets/002.jpeg";
-import image4 from "../assets/002.jpeg";
-import image5 from "../assets/002.jpeg";
-import image6 from "../assets/002.jpeg";
 import { GoDotFill } from "react-icons/go";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Section from "./Section";
-
-const Items = [
-  {
-    id: 1,
-    img: image1,
-    title: "Burger",
-    description: "Lorem ipsum dolor sit amet consectetur",
-    price: 99,
-    category: "Main",
-  },
-  {
-    id: 2,
-    img: image2,
-    title: "Pepsi",
-    description: "Lorem ipsum dolor sit amet consectetur",
-    price: 59,
-    category: "Beverages",
-  },
-  {
-    id: 3,
-    img: image3,
-    title: "Onion Rings",
-    description: "Lorem ipsum dolor sit amet consectetur",
-    price: 60,
-    category: "Snacks",
-  },
-  {
-    id: 4,
-    img: image4,
-    title: "Fries",
-    description: "Lorem ipsum dolor sit amet consectetur",
-    price: 50,
-    category: "Snacks",
-  },
-  {
-    id: 5,
-    img: image5,
-    title: "Aloo Tikki Burger",
-    description: "Lorem ipsum dolor sit amet consectetur",
-    price: 89,
-    category: "Main",
-  },
-  {
-    id: 6,
-    img: image6,
-    title: "Coke",
-    description: "Lorem ipsum dolor sit amet consectetur",
-    price: 49,
-    category: "Beverages",
-  },
-];
+import axios from "axios";
+import { AuthContext } from "@/AuthProvider";
+import { BASE_URL } from "/config";
 
 export default function Menu() {
-  const [items, SetItems] = useState(Items);
+  const [items, setItems] = useState();
+  const [allItems, setAllItems] = useState();
+  const { user } = useContext(AuthContext);
+
+  async function fetchMenuData() {
+    const response = await axios.get(
+      `${BASE_URL}/get-all-items`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(response);
+    return response.data;
+  }
+  useEffect(() => {
+    fetchMenuData().then((data) => {
+      setItems(data);
+      setAllItems(data);
+    });
+  }, []);
 
   const [activeItem, setActiveItem] = useState("All");
 
   function handleItems(e) {
     if (e === "All") {
-      SetItems(Items);
+      setItems(allItems);
       setActiveItem(e);
     } else {
-      SetItems(Items.filter((item) => item.category === e));
+      if (allItems) {
+        setItems(allItems.filter((item) => item.category === e));
+      } else {
+        setItems(null);
+      }
       setActiveItem(e);
     }
   }
@@ -153,12 +122,14 @@ export default function Menu() {
           {items ? (
             items.map((item) => (
               <MenuItems
-                key={item.id}
-                img={item.img}
-                title={item.title}
+                key={item._id}
+                id={item._id}
+                img={item.image}
+                title={item.name}
                 description={item.description}
                 price={item.price}
-              />
+                quantity={user?.cart.find((i) => i._id === item._id)?.quantity || 0}
+                />
             ))
           ) : (
             <MenuItems />
