@@ -8,10 +8,13 @@ import MyOrders from "./profile/MyOrders";
 import MyWishlist from "./profile/MyWishlist";
 import { RiAdminLine } from "react-icons/ri";
 import axios from "axios";
+import { BASE_URL } from "/config";
 
 // import { MdOutlineEdit } from "react-icons/md";
 
 function ProfileMenu({ active, setActive, index, children }) {
+  const { user } = useContext(AuthContext);
+
   function handleClick() {
     setActive(index);
   }
@@ -34,7 +37,7 @@ export default function ProfilePage() {
 
   async function handleLogout() {
     try {
-      const response = await axios.get("http://localhost:5000/api/logout", {
+      const response = await axios.get(`${BASE_URL}/logout"`, {
         withCredentials: true,
       });
 
@@ -86,12 +89,16 @@ export default function ProfilePage() {
               <ProfileMenu active={active} setActive={setActive} index={1}>
                 Change Password
               </ProfileMenu>
-              <ProfileMenu active={active} setActive={setActive} index={2}>
-                My Orders
-              </ProfileMenu>
-              <ProfileMenu active={active} setActive={setActive} index={3}>
-                My Wishlist
-              </ProfileMenu>
+              {!user.isAdmin && (
+                <>
+                  <ProfileMenu active={active} setActive={setActive} index={2}>
+                    My Orders
+                  </ProfileMenu>
+                  <ProfileMenu active={active} setActive={setActive} index={3}>
+                    My Wishlist
+                  </ProfileMenu>
+                </>
+              )}
               <li
                 className="cursor-pointer hover:text-orange-500 transition-all duration-100"
                 onClick={handleLogout}

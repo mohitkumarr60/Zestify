@@ -5,6 +5,14 @@ import Section from "./Section";
 import axios from "axios";
 import { AuthContext } from "@/AuthProvider";
 import { BASE_URL } from "/config";
+import All from "../assets/main.png"
+import AllDark from "../assets/main_dark.png"
+import Burger from "../assets/burger.png"
+import BurgerDark from "../assets/burger_dark.png"
+import Beverage from "../assets/beverage.png"
+import BeverageDark from "../assets/beverage_dark.png"
+import Snacks from "../assets/fries.png"
+import SnacksDark from "../assets/fries_dark.png"
 
 export default function Menu() {
   const [items, setItems] = useState();
@@ -60,8 +68,7 @@ export default function Menu() {
             onClick={() => {
               handleItems("All");
             }}
-          >
-            All
+          ><span className="flex justify-around w-full items-center text-xl"><img src={All} alt="" className="size-10"/>All</span>
             {activeItem == "All" && (
               <span className="w-full flex justify-center mt-1 md:w-auto">
                 <GoDotFill size={18} className="text-red-500" />
@@ -76,7 +83,7 @@ export default function Menu() {
               handleItems("Main");
             }}
           >
-            Main
+            <span className="flex justify-around w-full items-center text-xl"><img src={Burger} alt="" className="size-10"/>Burgers</span>
             {activeItem == "Main" && (
               <span className="w-full flex justify-center mt-1 md:w-auto">
                 <GoDotFill size={18} className="text-red-500" />

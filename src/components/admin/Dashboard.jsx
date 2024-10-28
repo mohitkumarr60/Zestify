@@ -4,9 +4,7 @@ import axios from "axios";
 import { BASE_URL } from "/config";
 import AddItem from "./AddItem";
 import EditItem from "./EditItem";
-import RemoveItem from "./RemoveItem";
-import AddCategory from "./AddCategory";
-import DeleteCategory from "./DeleteCategory.jsx";
+import EditCategories from "./EditCategories.jsx";
 function Option({ children, activeOption, setActiveOption }) {
   return (
     <li
@@ -60,17 +58,7 @@ export default function Dashboard() {
           )) ||
           (activeOption === 3 && (
             <>
-              Remove <span className="text-4xl">Item</span>
-            </>
-          )) ||
-          (activeOption === 4 && (
-            <>
-              Add <span className="text-4xl">Category</span>
-            </>
-          )) ||
-          (activeOption === 5 && (
-            <>
-              Delete <span className="text-4xl">Category</span>
+              Edit <span className="text-4xl">Categories</span>
             </>
           ))}
       </h6>
@@ -97,38 +85,24 @@ export default function Dashboard() {
             >
               Edit Item
             </Option>
+
             <Option
               activeOption={activeOption === 3}
               setActiveOption={() => setActiveOption(3)}
             >
-              Remove Item
-            </Option>
-            <Option
-              activeOption={activeOption === 4}
-              setActiveOption={() => setActiveOption(4)}
-            >
-              Add Category
-            </Option>
-            <Option
-              activeOption={activeOption === 5}
-              setActiveOption={() => setActiveOption(5)}
-            >
-              Delete Category
+              Edit Categories
             </Option>
           </ol>
         </div>
         <div className="w-full">
           {activeOption === 0 && (
             <div>
-              <h1>Dashboard</h1>
-              <p>Welcome to the admin dashboard!</p>
+              <p className="text-3xl">Welcome to the admin dashboard!</p>
             </div>
           )}
-          {activeOption === 1 && <AddItem categories={categories} />}
+          {activeOption === 1 && <AddItem categories={categories} isEdit={false}/>}
           {activeOption === 2 && <EditItem categories={categories} />}
-          {activeOption === 3 && <RemoveItem categories={categories} />}
-          {activeOption === 4 && <AddCategory categories={categories} />}
-          {activeOption === 5 && <DeleteCategory categories={categories} />}
+          {activeOption === 3 && <EditCategories categories={categories} />}
         </div>
       </div>
     </Section>

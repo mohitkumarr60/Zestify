@@ -3,7 +3,7 @@ import { BASE_URL } from "/config";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export default function AddCategory({ categories }) {
+export default function AddCategory({ categories, setCategories }) {
   const [category, setCategory] = useState("");
 
   async function handleAddCategory() {
@@ -19,8 +19,9 @@ export default function AddCategory({ categories }) {
         { withCredentials: true }
       );
       if (response.status === 200) {
+        // change the categories state
         toast.success(response.data.message);
-        console.log(response)
+        setCategories((prevCategories) => [...prevCategories, category]);
       }
     } catch (error) {
       toast.error(error.response.data.error);
@@ -29,24 +30,22 @@ export default function AddCategory({ categories }) {
 
   return (
     <>
-      <div className="w-full flex flex-col">
-        <span className="flex flex-col w-[400px] m-auto">
-          <label htmlFor="category" className="text-center mb-3">
-            Enter New Category:
-          </label>
+      <div className="w-full flex p-2 border shadow rounded">
+        <span className="flex flex-col w-full">
           <input
             type="text"
             id="category"
-            className="border px-2 py-1 rounded focus:outline-none focus:border-stone-400"
+            placeholder="Enter a new category here"
+            className="border px-3 py-2 rounded focus:outline-none focus:border-stone-400 w-auto"
             onChange={(e) => setCategory(e.target.value)}
           />
+          <button
+            className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-4 py-2 rounded mt-3"
+            onClick={handleAddCategory}
+          >
+            Add New Category
+          </button>
         </span>
-        <button
-          className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white w-[100px] px-4 py-2 rounded mt-5 m-auto"
-          onClick={handleAddCategory}
-        >
-          Add Item
-        </button>
       </div>
     </>
   );

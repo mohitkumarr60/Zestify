@@ -1,4 +1,3 @@
-import pattern from "../assets/bgPattern.png";
 import { BiSolidSend } from "react-icons/bi";
 
 export default function Chatbot() {

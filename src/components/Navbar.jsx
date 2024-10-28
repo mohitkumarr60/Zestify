@@ -47,6 +47,7 @@ const Navbar = ({ active = 0 }) => {
               >
                 <Link to="/">Home</Link>
               </li>
+
               {!user?.isAdmin && (
                 <>
                   <li
@@ -74,7 +75,19 @@ const Navbar = ({ active = 0 }) => {
               )}
               {signIn && (
                 <>
-                  {user.isAdmin ? (
+                  <li
+                    className={`${
+                      active === 5 ? "text-red-500" : ""
+                    } hover:text-red-500 cursor-pointer`}
+                  >
+                    <Link to="/wishlist">
+                      <span className="flex gap-1 items-center">
+                        <FaRegHeart className="size-5 hover:text-red-500 cursor-pointer" />
+                        Wishlist
+                        </span>
+                    </Link>
+                  </li>
+                  {user.isAdmin && (
                     <button
                       className={`${
                         active === 4
@@ -84,8 +97,6 @@ const Navbar = ({ active = 0 }) => {
                     >
                       <Link to={"/admin_dashboard"}>Admin Dashboard</Link>
                     </button>
-                  ) : (
-                    <FaRegHeart className="size-5 hover:text-red-500 cursor-pointer" />
                   )}
 
                   <div
