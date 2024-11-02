@@ -57,8 +57,8 @@ function App() {
               </UserRoute>
             }
           />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About active={active} setActive={setActive}/>} />
+          <Route path="/contact" element={<Contact active={active} setActive={setActive}/>} />
 
           <Route
             path="/admin_dashboard"
