@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import Feedback from "./pages/Feedback";
 import Team from "./pages/Team";
 import Profile from "./pages/Profile";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 import AdminDashboard from "./pages/AdminDashboard";
 import NoPage from "./pages/NoPage/NoPage";
 import { useState } from "react";
@@ -55,6 +57,8 @@ function App() {
               </UserRoute>
             }
           />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
 
           <Route
             path="/admin_dashboard"
