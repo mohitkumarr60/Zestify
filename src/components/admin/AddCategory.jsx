@@ -30,23 +30,21 @@ export default function AddCategory({ categories, setCategories }) {
 
   return (
     <>
-      <div className="w-full flex p-2 border shadow rounded">
-        <span className="flex flex-col w-full">
+        <div className="w-full flex gap-5">
           <input
             type="text"
             id="category"
             placeholder="Enter a new category here"
-            className="border px-3 py-2 rounded focus:outline-none focus:border-stone-400 w-auto"
+            className="px-3 py-2 rounded bg-stone-700 focus:outline-none flex-1 text-stone-100 placeholder:text-stone-400"
             onChange={(e) => setCategory(e.target.value)}
           />
           <button
-            className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-4 py-2 rounded mt-3"
+            className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-4 py-2 rounded w-[80px]"
             onClick={handleAddCategory}
           >
-            Add New Category
+            Add +
           </button>
-        </span>
-      </div>
+        </div>
     </>
   );
 }

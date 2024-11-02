@@ -5,17 +5,20 @@ import { BASE_URL } from "/config";
 import AddItem from "./AddItem";
 import EditItem from "./EditItem";
 import EditCategories from "./EditCategories.jsx";
+import { RiArrowRightSFill } from "react-icons/ri";
+
 function Option({ children, activeOption, setActiveOption }) {
   return (
     <li
       className={`${
-        activeOption && "text-red-500"
-      } hover:text-red-500 cursor-pointer`}
+        activeOption && "text-stone-50"
+      } hover:text-stone-50 cursor-pointer flex items-center justify-between`}
       onClick={() => {
         setActiveOption();
       }}
     >
-      {children}
+      <span>{children}</span>
+      <span>{activeOption && <RiArrowRightSFill size={20}/>}</span>
     </li>
   );
 }
@@ -40,7 +43,7 @@ export default function Dashboard() {
 
   return (
     <Section>
-      <h6 className="text-3xl font-light">
+      <div className="text-3xl font-light">
         {(activeOption === 0 && (
           <>
             Dash<span className="text-4xl">board</span>
@@ -61,12 +64,12 @@ export default function Dashboard() {
               Edit <span className="text-4xl">Categories</span>
             </>
           ))}
-      </h6>
+      </div>
       <br />
       <br />
-      <div className="flex gap-5">
-        <div className="w-[200px] border-r">
-          <ol className="space-y-2">
+      <div className="flex gap-5 flex-col md:flex-row">
+        <div className="w-full md:w-[300px] ">
+          <ol className="space-y-2 text-center md:text-left rounded-xl p-8 h-full bg-stone-800 text-stone-400">
             <Option
               activeOption={activeOption === 0}
               setActiveOption={() => setActiveOption(0)}
@@ -94,13 +97,15 @@ export default function Dashboard() {
             </Option>
           </ol>
         </div>
-        <div className="w-full">
+        <div className="w-full bg-stone-800 text-stone-400 p-8 rounded-xl">
           {activeOption === 0 && (
             <div>
               <p className="text-3xl">Welcome to the admin dashboard!</p>
             </div>
           )}
-          {activeOption === 1 && <AddItem categories={categories} isEdit={false}/>}
+          {activeOption === 1 && (
+            <AddItem categories={categories} isEdit={false} />
+          )}
           {activeOption === 2 && <EditItem categories={categories} />}
           {activeOption === 3 && <EditCategories categories={categories} />}
         </div>

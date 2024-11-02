@@ -1,32 +1,53 @@
 import axios from "axios";
 import { BASE_URL } from "/config";
 import { toast } from "react-toastify";
+import { FiMinus, FiPlus } from "react-icons/fi";
+import { useEffect, useState } from "react";
 export default function MenuItems({
   id,
   img,
   title,
   description,
   price,
-  quantity,
+  user,
 }) {
-  async function handleAddToCart() {
+  const [quantity, setQuantity] = useState();
+
+  useEffect(() => {
+    setQuantity(user?.cart?.find((item) => item.itemId === id)?.quantity || 0);
+  }, [id]);
+
+  async function handleAddItem() {
+    const response = await axios({
+      method: "post",
+      url: `${BASE_URL}/add-to-cart`,
+      data: {
+        itemId: id,
+      },
+      withCredentials: true,
+    });
+    if (response.status === 200) {
+      setQuantity((prev) => prev + 1);
+    }
+  }
+
+  async function handleRemoveItem() {
     try {
       const response = await axios({
         method: "post",
-        url: `${BASE_URL}/add-to-cart`,
+        url: `${BASE_URL}/remove-from-cart`,
         data: {
           itemId: id,
         },
         withCredentials: true,
       });
       if (response.status === 200) {
-        toast.success("Item added to cart");
+        setQuantity((prev) => prev - 1);
       }
-    } catch {
-      toast.error("Failed to add item to cart");
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
-
   return (
     <>
       <div className="w-full lg:w-[46%] xl:w-[30%] aspect-square border bg-white bg-opacity-35 backdrop-blur rounded-xl relative overflow-hidden">
@@ -43,23 +64,31 @@ export default function MenuItems({
               <p className="font-bold text-[24px] text-yellow-500">
                 Rs.{price}/-
               </p>
-              <button
-                className="text-stone-200 font-semibold bg-red-600 px-3 py-1 rounded hover:bg-red-500"
-                onClick={handleAddToCart}
-              >
-                {quantity !== 0 ? (
-                  <span className="flex items-center gap-2">
-                    <span className="text-lg">-</span>
-                    {quantity}
-                    <span className="text-lg">+</span>
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-1">
-                    Add
-                    <span className="text-lg">+</span>
-                  </span>
-                )}
-              </button>
+
+              {quantity !== 0 ? (
+                <span className="flex font-semibold">
+                  <button
+                    className="size-7 sm:size-8 bg-red-600 hover:bg-red-700 rounded-md flex justify-center items-center"
+                    onClick={handleRemoveItem}
+                  >
+                    <FiMinus className="size-5" />
+                  </button>
+                  <button className="size-7 sm:size-8 text-lg flex justify-center items-center">
+                    {quantity || 0}
+                  </button>
+                  <button
+                    className="size-7 sm:size-8 bg-red-600 hover:bg-red-700 rounded-md  flex justify-center items-center"
+                    onClick={handleAddItem}
+                  >
+                    <FiPlus className="size-5" />
+                  </button>
+                </span>
+              ) : (
+                <button className="flex items-center gap-1 bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md" onClick={handleAddItem}>
+                  Add
+                  <span className="text-lg"><FiPlus /></span>
+                </button>
+              )}
             </div>
           </div>
         </div>

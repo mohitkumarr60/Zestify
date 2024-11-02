@@ -21,7 +21,7 @@ function App() {
       <ToastContainer
         position="top-center"
         theme="light"
-        style={{ zIndex: 99999999999 }}
+        style={{ zIndex: 999999999999999 }}
       />
       <BrowserRouter>
         <Routes>
@@ -57,8 +57,14 @@ function App() {
               </UserRoute>
             }
           />
-          <Route path="/about" element={<About active={active} setActive={setActive}/>} />
-          <Route path="/contact" element={<Contact active={active} setActive={setActive}/>} />
+          <Route
+            path="/about"
+            element={<About active={active} setActive={setActive} />}
+          />
+          <Route
+            path="/contact"
+            element={<Contact active={active} setActive={setActive} />}
+          />
 
           <Route
             path="/admin_dashboard"

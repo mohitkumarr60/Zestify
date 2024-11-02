@@ -44,8 +44,8 @@ export default function EditItem({ categories }) {
             <button
               className={`${
                 activeItem === "All"
-                  ? "bg-stone-800 text-white"
-                  : "hover:bg-stone-200"
+                  ? "bg-stone-700 text-white"
+                  : "hover:bg-stone-700"
               } px-2 rounded`}
               onClick={() => handleItems("All")}
             >
@@ -56,8 +56,8 @@ export default function EditItem({ categories }) {
                 key={index}
                 className={`${
                   activeItem === category
-                    ? "bg-stone-800 text-white"
-                    : "hover:bg-stone-200"
+                    ? "bg-stone-700 text-white"
+                    : "hover:bg-stone-700"
                 } px-2 rounded`}
                 onClick={() => handleItems(category)}
               >

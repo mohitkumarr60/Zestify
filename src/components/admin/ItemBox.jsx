@@ -33,7 +33,7 @@ export default function ItemBox({ item , setItems, setSelectedItem, setIsSelecte
   return (
     <>
       {item && (
-        <div className="border shadow-sm rounded-lg overflow-hidden flex justify-between">
+        <div className="border border-stone-700 shadow-sm rounded-lg overflow-hidden flex justify-between">
           <div className="flex gap-3 items-center">
             <div>
               <img
@@ -43,18 +43,18 @@ export default function ItemBox({ item , setItems, setSelectedItem, setIsSelecte
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold">{item.name}</span>
+              <span className="font-semibold text-stone-200">{item.name}</span>
               <span className="text-sm">{item.description}</span>
-              <span className="text-sm font-bold text-red-500">
+              <span className="font-medium text-orange-500">
                 Rs. {item.price}/-
               </span>
             </div>
           </div>
           <div className="flex items-center p-3">
             <button className="flex flex-col gap-4">
-              <MdEdit className="size-5 text-stone-400 hover:text-stone-900" onClick={handleEditItem}/>
+              <MdEdit className="size-5 text-stone-500 hover:text-stone-200" onClick={handleEditItem}/>
               <ImBin
-                className="size-5 text-stone-400 hover:text-stone-900"
+                className="size-5 text-stone-500 hover:text-stone-200"
                 onClick={() => setIsDelete(true)}
               />
             </button>

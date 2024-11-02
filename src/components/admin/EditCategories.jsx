@@ -41,17 +41,17 @@ export default function EditCategories({ categories: initialCategories }) {
   return (
     <div className="flex flex-col max-w-[500px] m-auto">
       <AddCategory categories={categories} setCategories={setCategories}/>
-      <div className="flex flex-col gap-3 mt-5">
+      <div className="flex gap-3 mt-5 flex-wrap">
         {categories.map((item, index) => (
           <div
             key={index}
-            className="border rounded px-4 py-2 flex justify-between items-center"
+            className="bg-stone-700 rounded px-3 py-2 flex items-center gap-3 text-stone-100"
           >
             <span>{item}</span>
             <span
               onClick={()=>handleDeleteClick(item)}
             >
-              <IoMdClose className="size-6 text-stone-400 hover:text-stone-900 cursor-pointer" />
+              <IoMdClose className="size-5 text-stone-400 hover:text-stone-100 cursor-pointer flex" />
             </span>
           </div>
         ))}
@@ -72,7 +72,7 @@ export default function EditCategories({ categories: initialCategories }) {
                 <IoMdClose size={20} />
               </span>
               <span>Cancel</span>
-            </button>
+            </button> /
             <button
               className="bg-red-600 hover:bg-red-500 px-3 py-1 rounded flex items-center gap-1"
               onClick={() => {

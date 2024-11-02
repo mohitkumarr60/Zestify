@@ -5,7 +5,6 @@ import Section from "./Section";
 import AccountSetting from "./profile/AccountSetting";
 import ChangePassword from "./profile/ChangePassword";
 import MyOrders from "./profile/MyOrders";
-import MyWishlist from "./profile/MyWishlist";
 import { RiAdminLine } from "react-icons/ri";
 import axios from "axios";
 import { BASE_URL } from "/config";
@@ -13,8 +12,6 @@ import { BASE_URL } from "/config";
 // import { MdOutlineEdit } from "react-icons/md";
 
 function ProfileMenu({ active, setActive, index, children }) {
-  const { user } = useContext(AuthContext);
-
   function handleClick() {
     setActive(index);
   }
@@ -55,16 +52,17 @@ export default function ProfilePage() {
   return (
     <Section>
       <div className="max-w-[1000px] m-auto">
-        <h5 className="text-3xl">Hello, {user.name}</h5>
+        <h5 className="text-3xl">
+          {user.name}'s <span className="text-4xl">Profile</span>
+        </h5>
         <br />
-        <div className="flex gap-5">
+        <div className="flex gap-5 flex-col-reverse md:flex-row">
           <div className="flex w-full bg-stone-800 rounded-3xl p-8 text-stone-200">
             {active === 0 && <AccountSetting user={user} />}
             {active === 1 && <ChangePassword user={user} />}
             {active === 2 && <MyOrders user={user} />}
-            {active === 3 && <MyWishlist user={user} />}
           </div>
-          <div className="w-[300px] border-l bg-stone-800 p-8 rounded-3xl">
+          <div className="w-full md:w-[300px] border-l bg-stone-800 p-8 rounded-3xl mt-10 md:mt-0">
             <div className="flex justify-center relative">
               <span className="absolute top-[-80px] bg-white rounded-full p-2">
                 {/* <span className="absolute right-3 bg-black/50 rounded-full p-1 opacity-50 hover:opacity-100 transition-opacity duration-100 cursor-pointer" onClick={handleAvatarClick}>
@@ -95,9 +93,6 @@ export default function ProfilePage() {
                 <>
                   <ProfileMenu active={active} setActive={setActive} index={2}>
                     My Orders
-                  </ProfileMenu>
-                  <ProfileMenu active={active} setActive={setActive} index={3}>
-                    My Wishlist
                   </ProfileMenu>
                 </>
               )}

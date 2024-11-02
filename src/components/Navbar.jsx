@@ -79,12 +79,13 @@ const Navbar = ({ active = 0 }) => {
                     className={`${
                       active === 5 ? "text-red-500" : ""
                     } hover:text-red-500 cursor-pointer`}
+                    onClick={() => window.location.reload()}
                   >
                     <Link to={`/cart?=${user._id}`}>
                       <span className="flex gap-1 items-center">
                         <IoCartOutline className="size-5 hover:text-red-500 cursor-pointer" />
                         Cart
-                        </span>
+                      </span>
                     </Link>
                   </li>
                   {user.isAdmin && (
@@ -155,38 +156,106 @@ const Navbar = ({ active = 0 }) => {
       <ul
         className={`${
           click
-            ? "w-[300px] h-screen transition-all duration-200 bg-white border"
+            ? "w-[300px] h-screen transition-all duration-200 bg-white border p-5"
             : "w-0 overflow-hidden transition-all duration-200 h-screen"
-        } fixed top-20 right-0 md:hidden bg-opacity-80 backdrop-blur bg-white z-[9999]`}
+        } fixed top-20 right-0 md:hidden bg-opacity-80 backdrop-blur bg-white z-[9999] space-y-4`}
       >
+        <div className="flex items-center gap-4">
+          <span
+            className="bg-orange-600 p-2 rounded-full size-12 flex justify-center items-center text-white hover:shadow-lg cursor-pointer transition-all duration-150"
+            onClick={goToProfile}
+          >
+            {user && (
+              <>
+                {user.isAdmin ? (
+                  <>
+                    {user.avatar ? (
+                      <span>{user.avatar}</span>
+                    ) : (
+                      <RiAdminLine size={28} />
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {user.avatar ? (
+                      <span>{user.avatar}</span>
+                    ) : (
+                      <span className="">
+                        {user.name.slice(0, 2).toUpperCase()}
+                      </span>
+                    )}
+                  </>
+                )}
+              </>
+            )}
+          </span>
+          {user && (
+            <span className="text-xl font-medium">
+              Hello, <span className="text-3xl">{user.name}</span>
+            </span>
+          )}
+        </div>
         <li
           className={`${
             active === 0 ? "text-red-500" : ""
-          } hover:text-red-500 cursor-pointer p-5 font-semibold`}
+          } hover:text-red-500 cursor-pointer`}
         >
           <Link to="/">Home</Link>
         </li>
-        <li
-          className={`${
-            active === 1 ? "text-red-500" : ""
-          } hover:text-red-500 cursor-pointer p-5 font-semibold`}
-        >
-          <Link to="/about">About</Link>
-        </li>
-        <li
-          className={`${
-            active === 2 ? "text-red-500" : ""
-          } hover:text-red-500 cursor-pointer p-5 font-semibold`}
-        >
-          <Link to="/feedback">Feedback</Link>
-        </li>
-        <li
-          className={`${
-            active === 3 ? "text-red-500" : ""
-          } hover:text-red-500 cursor-pointer p-5 font-semibold`}
-        >
-          <Link to="/contact">Contact us</Link>
-        </li>
+
+        {!user?.isAdmin && (
+          <>
+            <li
+              className={`${
+                active === 1 ? "text-red-500" : ""
+              } hover:text-red-500 cursor-pointer`}
+            >
+              <Link to="/about">About</Link>
+            </li>
+            <li
+              className={`${
+                active === 2 ? "text-red-500" : ""
+              } hover:text-red-500 cursor-pointer`}
+            >
+              <Link to="/feedback">Feedback</Link>
+            </li>
+            <li
+              className={`${
+                active === 3 ? "text-red-500" : ""
+              } hover:text-red-500 cursor-pointer`}
+            >
+              <Link to="/contact">Contact us</Link>
+            </li>
+          </>
+        )}
+        {signIn && (
+          <>
+            <li
+              className={`${
+                active === 5 ? "text-red-500" : ""
+              } hover:text-red-500 cursor-pointer`}
+               onClick={() => window.location.reload()}
+            >
+              <Link to={`/cart?=${user._id}`}>
+                <span className="flex gap-1 items-center">
+                  <IoCartOutline className="size-5 hover:text-red-500 cursor-pointer" />
+                  Cart
+                </span>
+              </Link>
+            </li>
+            {user.isAdmin && (
+              <button
+                className={`${
+                  active === 4
+                    ? "bg-gradient-to-r from-red-500 to-orange-500 text-white"
+                    : "border border-red-300 text-stone-800"
+                } px-3 py-1 rounded-lg hover:bg-gradient-to-r hover:text-white hover:from-red-600 hover:bg-orange-600 transition-all duration-100`}
+              >
+                <Link to={"/admin_dashboard"}>Admin Dashboard</Link>
+              </button>
+            )}
+          </>
+        )}
         <br />
         {!signIn && (
           <div className="pl-5">

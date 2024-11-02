@@ -12,7 +12,7 @@ import Beverage from "../assets/beverage.png";
 import BeverageDark from "../assets/beverage_dark.png";
 import Snacks from "../assets/fries.png";
 import SnacksDark from "../assets/fries_dark.png";
-import "./component.css"
+import "./component.css";
 
 export default function Menu() {
   const [items, setItems] = useState();
@@ -61,64 +61,78 @@ export default function Menu() {
           </h5>
           <li
             className={`${
-              activeItem == "All" ? "text-white category-active" : "text-stone-600 category-button-effect"
+              activeItem == "All"
+                ? "text-white category-active"
+                : "text-stone-600 category-button-effect"
             } cursor-pointer px-2 py-1 md:py-3 md:px-2 md:rounded-l-full md:flex items-center justify-between text-center md:text-left gap-5 relative rounded overflow-hidden border md:border-none`}
             onClick={() => {
               handleItems("All");
             }}
           >
             <span className="flex justify-end gap-5 w-full items-center text-lg p-1">
-              <img src={
-                activeItem == "All" ? All : AllDark
-              } alt="" className="size-8" />
-            All
+              <img
+                src={activeItem == "All" ? All : AllDark}
+                alt=""
+                className="size-8"
+              />
+              All
             </span>
           </li>
           <li
             className={`${
-              activeItem == "Main" ? "text-white category-active" : "text-stone-600 category-button-effect"
+              activeItem == "Main"
+                ? "text-white category-active"
+                : "text-stone-600 category-button-effect"
             } cursor-pointer px-2 py-1 md:py-3 md:px-2 md:rounded-l-full md:flex items-center justify-between text-center md:text-left gap-5 relative rounded overflow-hidden border md:border-none`}
             onClick={() => {
               handleItems("Main");
             }}
           >
-           <span className="flex justify-end gap-5 w-full items-center text-lg p-1">
-              <img src={
-                activeItem == "Main" ? Burger : BurgerDark
-              } alt="" className="size-8" />
-            Burgers
+            <span className="flex justify-end gap-5 w-full items-center text-lg p-1">
+              <img
+                src={activeItem == "Main" ? Burger : BurgerDark}
+                alt=""
+                className="size-8"
+              />
+              Burgers
             </span>
           </li>
           <li
             className={`${
               activeItem == "Beverages"
-                ? "text-white category-active" : "text-stone-600 category-button-effect"
+                ? "text-white category-active"
+                : "text-stone-600 category-button-effect"
             } cursor-pointer px-2 py-1 md:py-3 md:px-2 md:rounded-l-full md:flex items-center justify-between text-center md:text-left gap-5 relative rounded overflow-hidden border md:border-none`}
             onClick={() => {
               handleItems("Beverages");
             }}
           >
-          <span className="flex justify-end gap-5 w-full items-center text-lg p-1">
-              <img src={
-                activeItem == "Beverages" ? Beverage : BeverageDark
-              } alt="" className="size-8" />
-            Beverages
+            <span className="flex justify-end gap-5 w-full items-center text-lg p-1">
+              <img
+                src={activeItem == "Beverages" ? Beverage : BeverageDark}
+                alt=""
+                className="size-8"
+              />
+              Beverages
             </span>
           </li>
           <li
             className={`${
               activeItem == "Snacks"
-                ? "text-white category-active" : "text-stone-600 category-button-effect"
+                ? "text-white category-active"
+                : "text-stone-600 category-button-effect"
             } cursor-pointer px-2 py-1 md:py-3 md:px-2 md:rounded-l-full md:flex items-center justify-between text-center md:text-left gap-5 relative rounded overflow-hidden border md:border-none`}
             onClick={() => {
               handleItems("Snacks");
             }}
           >
             <span className="flex justify-end gap-5 w-full items-center text-lg p-1">
-              <img src={
-                activeItem == "Snacks" ? Snacks : SnacksDark
-              } alt="" className="size-8" />
-            Snacks
+              <img
+                src={activeItem == "Snacks" ? Snacks : SnacksDark}
+                alt=""
+                className="size-8"
+              />
+              Snacks
             </span>
           </li>
         </menu>
@@ -132,15 +146,12 @@ export default function Menu() {
                 title={item.name}
                 description={item.description}
                 price={item.price}
-                quantity={
-                  user?.cart.find((i) => i.itemId === item._id)?.quantity || 0
-                }
+                user={user}
               />
             ))
           ) : (
             <MenuItems />
           )}
-
         </div>
       </div>
     </Section>

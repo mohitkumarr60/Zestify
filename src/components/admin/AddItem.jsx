@@ -99,7 +99,7 @@ export default function AddItem({
             type="text"
             id="title"
             value={title}
-            className="border px-2 py-1 rounded focus:outline-none focus:border-stone-400"
+            className="px-3 py-2 rounded focus:outline-none bg-stone-700 text-stone-100"
             onChange={(e) => setTitle(e.target.value)}
           />
         </span>
@@ -109,7 +109,7 @@ export default function AddItem({
             type="text"
             id="description"
             value={description}
-            className="border px-2 py-1 rounded focus:outline-none focus:border-stone-400"
+            className="px-3 py-2 rounded focus:outline-none bg-stone-700 text-stone-100"
             onChange={(e) => setDescription(e.target.value)}
           />
         </span>
@@ -122,7 +122,7 @@ export default function AddItem({
             min={0}
             id="price"
             value={price}
-            className="border px-2 py-1 rounded focus:outline-none focus:border-stone-400"
+            className="px-3 py-2 rounded focus:outline-none bg-stone-700 text-stone-100"
             onChange={(e) => setPrice(parseInt(e.target.value))}
           />
         </span>
@@ -131,7 +131,7 @@ export default function AddItem({
           <select
             id="category"
             value={category}
-            className="border px-2 py-1 rounded focus:outline-none focus:border-stone-400"
+            className="px-3 py-2 rounded focus:outline-none bg-stone-700 text-stone-100"
             onChange={(e) => setCategory(e.target.value)}
           >
             {categories?.map((category, index) => (
@@ -148,14 +148,14 @@ export default function AddItem({
           type="text"
           id="image"
           value={image}
-          className="border px-2 py-1 rounded focus:outline-none focus:border-stone-400"
+          className="px-3 py-2 rounded focus:outline-none bg-stone-700 text-stone-100"
           onChange={(e) => setImage(e.target.value)}
         />
       </span>
       {isEdit ? (
         <div className="flex justify-between">
           <button
-            className="bg-stone-700 hover:bg-stone-800 text-white px-4 py-2 rounded mt-5"
+            className="bg-stone-700 hover:bg-stone-500 text-white px-4 py-2 rounded mt-5"
             onClick={() => setIsSelected(false)}
           >
             Cancel
@@ -163,9 +163,9 @@ export default function AddItem({
           <button
             className={`${
               hasChanges
-                ? "bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600"
-                : "bg-stone-400 cursor-not-allowed"
-            } text-white px-4 py-2 rounded mt-5`}
+                ? "bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white"
+                : "cursor-not-allowed text-stone-400"
+            } px-4 py-2 rounded mt-5`}
             onClick={handleUpdateItem}
             disabled={!hasChanges}
           >

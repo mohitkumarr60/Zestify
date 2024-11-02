@@ -6,12 +6,22 @@ import axios from "axios";
 import { BASE_URL } from "/config.js";
 import Section from "../Section.jsx";
 import { AuthContext } from "@/AuthProvider.jsx";
+import Alert from "../Alert.jsx";
 
 export default function CartContent() {
   const [cart, setCart] = useState();
   const { user } = useContext(AuthContext);
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState(user?.address);
+  const [activeLocation, setActiveLocation] = useState(false);
+  const [houseNumber, setHouseNumber] = useState();
+  const [floor, setFloor] = useState(null);
+  const [street, setStreet] = useState(null);
+  const [landmark, setLandmark] = useState(null);
+  const [country, setCountry] = useState(null);
+  const [city, setCity] = useState(null);
+  const [state, setState] = useState(null);
+  const [pincode, setPincode] = useState(null);
 
   async function fetchCartData() {
     const response = await axios.get(`${BASE_URL}/get-cart`, {
@@ -42,16 +52,42 @@ export default function CartContent() {
   }, [cart, user]);
 
   async function handleAddLocation() {
+    if (!houseNumber || !street || !country || !city || !state || !pincode) {
+      toast.error("Please fill all the required fields");
+      return;
+    }
+    //combine the address
+    const fullAddress = `${houseNumber}, ${
+      floor ? `${floor}, ` : ""
+    }${street}, ${
+      landmark ? `${landmark}, ` : ""
+    } ${city}, ${state}, ${country}, ${pincode}`;
+
+    setAddress(fullAddress);
+
     try {
       const response = await axios({
-        method: "put",
-        url: `${BASE_URL}/update-address`,
+        method: "post",
+        url: `${BASE_URL}/add-address`,
+        data: {
+          address: fullAddress,
+        },
+        withCredentials: true,
       });
       if (response.status === 200) {
-        toast.success("Location updated successfully");
+        toast.success("Address added successfully");
+        setActiveLocation(false);
+        setHouseNumber(null);
+        setFloor(null);
+        setStreet(null);
+        setLandmark(null);
+        setCity(null);
+        setState(null);
+        setCountry(null);
+        setPincode(null);
       }
-    } catch {
-      toast.error("Something went wrong");
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
@@ -84,7 +120,7 @@ export default function CartContent() {
             <div className="flex justify-end w-full mt-2">
               <button
                 className="border border-green-800 px-3 py-1 font-bold text-green-800 rounded-md hover:bg-green-800 hover:text-white transition-all duration-100"
-                onClick={handleAddLocation}
+                onClick={() => setActiveLocation(true)}
               >
                 {user?.address ? "CHANGE LOCATION" : "ADD LOCATION"}
               </button>
@@ -118,6 +154,99 @@ export default function CartContent() {
           </div>
         </div>
       </div>
+      {activeLocation && (
+        <Alert>
+          <div className="flex flex-col gap-4 max-w-[600px] p-3">
+            <p className="font-medium text-2xl text-center text-stone-200">
+              Add Location
+            </p>
+            <span className="flex gap-5 w-full">
+              <input
+                type="text"
+                placeholder="House Number *"
+                name="houseNumber"
+                required
+                className="px-2 py-2 relative bg-transparent border-b requiredField focus:outline-none border-stone-600 focus:border-stone-300 placeholder:text-stone-500 w-1/2"
+                onChange={(e) => setHouseNumber(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Floor"
+                name="floor"
+                className="px-2 py-2 relative bg-transparent border-b requiredField focus:outline-none border-stone-600 focus:border-stone-300 placeholder:text-stone-500 w-1/2"
+                onChange={(e) => setFloor(e.target.value)}
+              />
+            </span>
+            <input
+              type="text"
+              placeholder="Street *"
+              name="street"
+              required
+              className="px-2 py-2 relative bg-transparent border-b requiredField focus:outline-none border-stone-600 focus:border-stone-300 placeholder:text-stone-500"
+              onChange={(e) => setStreet(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Landmark"
+              name="landmark"
+              className="px-2 py-2 relative bg-transparent border-b requiredField focus:outline-none border-stone-600 focus:border-stone-300 placeholder:text-stone-500"
+              onChange={(e) => setLandmark(e.target.value)}
+            />
+            <span className="md:flex gap-5 w-full">
+              <span className="flex gap-5">
+                <input
+                  type="text"
+                  placeholder="Country *"
+                  name="country"
+                  required
+                  className="px-2 py-2 relative bg-transparent border-b requiredField focus:outline-none border-stone-600 focus:border-stone-300 placeholder:text-stone-500 w-1/2"
+                  onChange={(e) => setCountry(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="State *"
+                  name="state"
+                  required
+                  className="px-2 py-2 relative bg-transparent border-b requiredField focus:outline-none border-stone-600 focus:border-stone-300 placeholder:text-stone-500 w-1/2"
+                  onChange={(e) => setState(e.target.value)}
+                />
+              </span>
+              <span className="flex gap-5 mt-4 md:mt-0">
+                <input
+                  type="text"
+                  placeholder="City *"
+                  name="city"
+                  required
+                  className="px-2 py-2 relative bg-transparent border-b requiredField focus:outline-none border-stone-600 focus:border-stone-300 placeholder:text-stone-500 w-1/2"
+                  onChange={(e) => setCity(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="PIN Code *"
+                  name="pinCode"
+                  required
+                  className="px-2 py-2 relative bg-transparent border-b requiredField focus:outline-none border-stone-600 focus:border-stone-300 placeholder:text-stone-500 w-1/2"
+                  onChange={(e) => setPincode(e.target.value)}
+                />
+              </span>
+            </span>
+            <div className="flex justify-end gap-4">
+              <button
+                className="px-4 py-2 font-bold rounded-md bg-stone-800 text-stone-300 hover:bg-stone-700 hover:text-stone-100 active:scale-95 transition-all duration-100"
+                onClick={() => setActiveLocation(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 font-bold rounded-md bg-green-900 hover:bg-green-800 active:scale-95 transition-all duration-100 text-stone-300 hover:text-stone-100"
+                onClick={handleAddLocation}
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </Alert>
+      )}
     </Section>
   );
 }
