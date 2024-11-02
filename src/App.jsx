@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminRoute from "./AdminRoute";
 import UserRoute from "./UserRoute";
+import Cart from "./pages/Cart.jsx";
 
 function App() {
   const [active, setActive] = useState(0);
@@ -46,6 +47,15 @@ function App() {
               </UserRoute>
             }
           />
+          <Route
+            path="/cart"
+            element={
+              <UserRoute>
+                <Cart active={active} setActive={setActive} />
+              </UserRoute>
+            }
+          />
+
           <Route
             path="/admin_dashboard"
             element={

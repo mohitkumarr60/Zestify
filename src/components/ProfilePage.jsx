@@ -37,7 +37,9 @@ export default function ProfilePage() {
 
   async function handleLogout() {
     try {
-      const response = await axios.get(`${BASE_URL}/logout"`, {
+      const response = await axios({
+        method: "get",
+        url: `${BASE_URL}/logout`,
         withCredentials: true,
       });
 

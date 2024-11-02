@@ -6,7 +6,7 @@ import LoginForm from "./LoginForm.jsx";
 import SignupForm from "./SignupForm.jsx";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/AuthProvider.jsx";
-import { FaRegHeart } from "react-icons/fa6";
+import { IoCartOutline } from "react-icons/io5";
 import { RiAdminLine } from "react-icons/ri";
 
 const Navbar = ({ active = 0 }) => {
@@ -80,10 +80,10 @@ const Navbar = ({ active = 0 }) => {
                       active === 5 ? "text-red-500" : ""
                     } hover:text-red-500 cursor-pointer`}
                   >
-                    <Link to="/wishlist">
+                    <Link to={`/cart?=${user._id}`}>
                       <span className="flex gap-1 items-center">
-                        <FaRegHeart className="size-5 hover:text-red-500 cursor-pointer" />
-                        Wishlist
+                        <IoCartOutline className="size-5 hover:text-red-500 cursor-pointer" />
+                        Cart
                         </span>
                     </Link>
                   </li>

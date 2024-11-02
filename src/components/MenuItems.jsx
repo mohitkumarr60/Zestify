@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BASE_URL } from "/config";
 import { toast } from "react-toastify";
 export default function MenuItems({
   id,
@@ -10,11 +11,14 @@ export default function MenuItems({
 }) {
   async function handleAddToCart() {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/add-to-cart",
-        { itemId: id },
-        { withCredentials: true }
-      );
+      const response = await axios({
+        method: "post",
+        url: `${BASE_URL}/add-to-cart`,
+        data: {
+          itemId: id,
+        },
+        withCredentials: true,
+      });
       if (response.status === 200) {
         toast.success("Item added to cart");
       }
@@ -36,13 +40,19 @@ export default function MenuItems({
             <h3 className="text-[24px] mt-2">{title}</h3>
             <p className="text-px] text-stone-200">{description}</p>
             <div className="flex justify-between w-full items-center">
-              <p className="font-bold text-[24px] text-yellow-500">Rs.{price}/-</p>
+              <p className="font-bold text-[24px] text-yellow-500">
+                Rs.{price}/-
+              </p>
               <button
                 className="text-stone-200 font-semibold bg-red-600 px-3 py-1 rounded hover:bg-red-500"
                 onClick={handleAddToCart}
               >
-                {quantity > 0 ? (
-                  <span>{quantity}</span>
+                {quantity !== 0 ? (
+                  <span className="flex items-center gap-2">
+                    <span className="text-lg">-</span>
+                    {quantity}
+                    <span className="text-lg">+</span>
+                  </span>
                 ) : (
                   <span className="flex items-center gap-1">
                     Add
