@@ -1,6 +1,6 @@
-import Navbar from "../Components/Navbar";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import OurTeam from "../Components/OurTeam";
+import OurTeam from "../components/OurTeam";
 import { useEffect } from "react";
 
 export default function Team({ active, setActive }) {
