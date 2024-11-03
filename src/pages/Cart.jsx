@@ -1,19 +1,17 @@
 import { useEffect } from "react";
-import Navbar from "../Components/Navbar";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-
 import CartContent from "../components/cart/CartContent";
-export default function Cart({active, setActive}) {
+export default function Cart({ active, setActive }) {
   useEffect(() => {
-    setActive(5); 
-    
+    setActive(5);
   }, [setActive]);
 
   return (
     <>
-      <Navbar active={active}/>
-      <CartContent />   
+      <Navbar active={active} />
+      <CartContent />
       <Footer />
     </>
   );
