@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { BASE_URL } from "/config";
+
 export default function ChangePassword({ user }) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -28,7 +30,7 @@ export default function ChangePassword({ user }) {
       return;
     }
     try {
-      const response = await axios.put("http://localhost:5000/api/update-user-password", {
+      const response = await axios.put(`${BASE_URL}/update-user-password`, {
         oldPassword: currentPassword,
         newPassword: newPassword,
       }, {withCredentials:true});

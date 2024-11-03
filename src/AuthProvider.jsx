@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BASE_URL } from "/config";
 import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
@@ -17,7 +18,7 @@ const AuthProvider = ({ children }) => {
     // check user session on page load
     const verifySession = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/verify", {
+        const response = await axios.get(`${BASE_URL}/verify`, {
           withCredentials: true,
         });
         if (response.status === 200 && response.data.isAuthenticated) {

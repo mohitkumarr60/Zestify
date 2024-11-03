@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { toast } from "react-toastify";
+import { BASE_URL } from "/config";
 
 function SignupForm({ setLogin, setSignup }) {
   const [name, setName] = useState("");
@@ -37,7 +38,7 @@ function SignupForm({ setLogin, setSignup }) {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:5000/api/register", {
+      const response = await axios.post(`${BASE_URL}/register`, {
         name: name,
         email: email,
         password: password,

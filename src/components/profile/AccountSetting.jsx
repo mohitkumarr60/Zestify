@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BASE_URL } from "/config";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -12,7 +13,7 @@ export default function AccountSetting({ user }) {
   async function handleUserUpdate() {
     try{
       const response = await axios.put(
-        "http://localhost:5000/api/update-user",
+        `${BASE_URL}/update-user`,
         { name: userName },
         { withCredentials: true }
       );

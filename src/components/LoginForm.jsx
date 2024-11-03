@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BASE_URL } from "/config";
 
 function LoginForm({ setSignIn, setLogin, setSignup }) {
   const [email, setEmail] = useState("");
@@ -24,14 +25,15 @@ function LoginForm({ setSignIn, setLogin, setSignup }) {
       return;
     }
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/login",
-        {
-          email,
-          password,
+      const response = await axios({
+        method: "post",
+        url: `${BASE_URL}/login`,
+        data: {
+          email: email,
+          password: password,
         },
-        { withCredentials: true }
-      );
+        withCredentials: true,
+      });
 
       if (response.status === 200) {
         setSignIn(true);
